@@ -91,4 +91,47 @@ document.addEventListener('DOMContentLoaded', () => {
     if (initialForm) {
         setupFormSubmit(initialForm);
     }
+
+    // Improved Scroll Effect with Intersection Observer
+    const sections = document.querySelectorAll('section');
+    const observerOptions = {
+        root: null,
+        rootMargin: '-50px 0px -50px 0px', // Trigger slightly before/after section enters view
+        threshold: 0.15 // Trigger when 15% of the section is visible
+    };
+
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                // Optional: Stop observing after animation to improve performance
+                // observer.unobserve(entry.target);
+            } else {
+                // Optional: Remove class when out of view for reset
+                // entry.target.classList.remove('visible');
+            }
+        });
+    }, observerOptions);
+
+    sections.forEach(section => {
+        observer.observe(section);
+    });
+
+    // Smooth Scroll for Navigation Links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+                // Close mobile menu if open
+                if (navUl.classList.contains('active')) {
+                    navUl.classList.remove('active');
+                }
+            }
+        });
+    });
 });
