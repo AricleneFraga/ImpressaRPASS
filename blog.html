@@ -1,0 +1,226 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex));
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+</script>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RPASS - Blog</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Roboto+Condensed:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Cabeçalho -->
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="index.html">
+                    <img src="img/logo1.jpg" alt="RPASS Logo">
+                </a>
+            </div>
+            <span class="menu-toggle">☰</span>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="blog.html" class="active restricted">Blog</a></li>
+                <li><a href="cooperativas-atualizacoes.html" class="restricted">Cooperativas</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero -->
+    <section id="hero" class="hero" page="blog">
+        <div class="hero-content">
+            <h1>Blog RPASS</h1>
+            <p>Explore artigos, dicas e estratégias para otimizar sua gestão contábil.</p>
+            <a href="#artigos" class="cta-button" aria-label="Explorar artigos do blog">Explorar Artigos</a>
+        </div>
+    </section>
+
+    <!-- Artigos em Destaque -->
+    <div class="section-divider"></div>
+    <section id="destaque" class="destaque">
+        <h2>Artigo em Destaque</h2>
+        <div class="destaque-card">
+            <img src="https://via.placeholder.com/600x300?text=Contabilidade+Digital" alt="Contabilidade Digital">
+            <div class="destaque-card-content">
+                <h3>Contabilidade Digital: O Futuro das Cooperativas</h3>
+                <div class="date">25 de Março, 2025</div>
+                <p>Entenda como a tecnologia pode transformar sua gestão financeira.</p>
+                <a href="#" class="restricted" aria-label="Leia mais sobre Contabilidade Digital">Leia Mais</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Barra de Pesquisa e Artigos -->
+    <div class="section-divider"></div>
+    <section id="artigos" class="artigos">
+        <h2>Últimos Artigos</h2>
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Pesquisar artigos..." aria-label="Pesquisar artigos">
+            <button onclick="searchArticles()" aria-label="Pesquisar">🔍</button>
+        </div>
+
+        <!-- Categoria: Gestão Fiscal -->
+        <div class="category-section">
+            <h3 class="category-title">Gestão Fiscal</h3>
+            <div class="grid">
+                <div class="artigo-card" data-category="gestao-fiscal">
+                    <img src="https://via.placeholder.com/300x150?text=Gestão+Fiscal" alt="Gestão Fiscal">
+                    <div class="artigo-card-content">
+                        <h3>Como Otimizar a Gestão Fiscal da Sua Cooperativa</h3>
+                        <div class="date">10 de Abril, 2025</div>
+                        <p>Descubra estratégias práticas para reduzir custos tributários legalmente.</p>
+                        <a href="#" class="restricted" aria-label="Leia mais sobre Gestão Fiscal">Leia Mais</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Categoria: Contabilidade Digital -->
+        <div class="category-section">
+            <h3 class="category-title">Contabilidade Digital</h3>
+            <div class="grid">
+                <div class="artigo-card" data-category="contabilidade-digital">
+                    <img src="https://via.placeholder.com/300x150?text=Contabilidade+Digital" alt="Contabilidade Digital">
+                    <div class="artigo-card-content">
+                        <h3>Contabilidade Digital: O Futuro das Cooperativas</h3>
+                        <div class="date">25 de Março, 2025</div>
+                        <p>Entenda como a tecnologia pode transformar sua gestão financeira.</p>
+                        <a href="#" class="restricted" aria-label="Leia mais sobre Contabilidade Digital">Leia Mais</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Categoria: Planejamento Financeiro -->
+        <div class="category-section">
+            <h3 class="category-title">Planejamento Financeiro</h3>
+            <div class="grid">
+                <div class="artigo-card" data-category="planejamento-financeiro">
+                    <img src="https://via.placeholder.com/300x150?text=Planejamento" alt="Planejamento">
+                    <div class="artigo-card-content">
+                        <h3>Planejamento Financeiro para Pequenas Cooperativas</h3>
+                        <div class="date">15 de Fevereiro, 2025</div>
+                        <p>Dicas para criar um plano financeiro robusto e sustentável.</p>
+                        <a href="#" class="restricted" aria-label="Leia mais sobre Planejamento Financeiro">Leia Mais</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Categoria: Conformidade Contábil -->
+        <div class="category-section">
+            <h3 class="category-title">Conformidade Contábil</h3>
+            <div class="grid">
+                <div class="artigo-card" data-category="conformidade-contabil">
+                    <img src="https://via.placeholder.com/300x150?text=Conformidade" alt="Conformidade">
+                    <div class="artigo-card-content">
+                        <h3>Conformidade Contábil: Evite Multas e Penalidades</h3>
+                        <div class="date">5 de Janeiro, 2025</div>
+                        <p>Passos essenciais para manter sua cooperativa em conformidade.</p>
+                        <a href="#" class="restricted" aria-label="Leia mais sobre Conformidade Contábil">Leia Mais</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="load-more">
+            <button onclick="loadMoreArticles()" aria-label="Carregar mais artigos">Ver Mais</button>
+        </div>
+        <p class="note">Em breve, acesse nossos artigos exclusivos com cadastro!</p>
+    </section>
+
+    <!-- Chamada à Ação -->
+    <div class="section-divider"></div>
+    <section id="cta" class="cta">
+        <h2>Fique por Dentro</h2>
+        <p>Assine nossa newsletter para receber os melhores artigos diretamente no seu email.</p>
+        <a href="#" aria-label="Assinar a Newsletter do Blog">Assinar Newsletter</a>
+    </section>
+
+    <!-- Rodapé -->
+    <footer>
+        <p>© 2025 RPASS. Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="scripts.js" defer></script>
+    <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'938fb1570bf869e7',t:'MTc0NjEwNjg0Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+</body>
+</html>

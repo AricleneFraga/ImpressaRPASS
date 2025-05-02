@@ -1,0 +1,221 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex));
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+</script>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RPASS - Cooperativas em Destaque</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Roboto+Condensed:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Cabeçalho -->
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="index.html">
+                    <img src="img/logo1.jpg" alt="RPASS Logo">
+                </a>
+            </div>
+            <span class="menu-toggle">☰</span>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="blog.html" class="restricted">Blog</a></li>
+                <li><a href="cooperativas-atualizacoes.html" class="active restricted">Cooperativas</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero -->
+    <section id="hero" class="hero" page="cooperativas">
+        <div class="hero-content">
+            <h1>Cooperativas em Destaque</h1>
+            <p>Acompanhe as conquistas e inovações dos serviços que transformam cooperativas.</p>
+            <a href="#atualizacoes" class="cta-button" aria-label="Explorar atualizações de cooperativas">Explore as Atualizações</a>
+        </div>
+    </section>
+
+    <!-- Atualizações -->
+    <div class="section-divider"></div>
+    <section id="atualizacoes" class="atualizacoes">
+        <h2>Nossos Projetos com Cooperativas</h2>
+        <div class="grid">
+            <div class="atualizacao-card">
+                <img src="https://via.placeholder.com/300x150?text=Otimização+Fiscal" alt="Otimização Fiscal">
+                <div class="atualizacao-card-content">
+                    <h3>Otimização Fiscal para Cooperativa Agrícola</h3>
+                    <div class="date">25 de Abril, 2025</div>
+                    <p>Reduzimos a carga tributária em 20% com planejamento estratégico.</p>
+                    <a href="#" class="restricted" aria-label="Saiba mais sobre Otimização Fiscal">Saiba Mais</a>
+                </div>
+            </div>
+            <div class="atualizacao-card">
+                <img src="https://via.placeholder.com/300x150?text=Contabilidade+Digital" alt="Contabilidade Digital">
+                <div class="atualizacao-card-content">
+                    <h3>Contabilidade Digital para Cooperativa de Crédito</h3>
+                    <div class="date">10 de Março, 2025</div>
+                    <p>Implementamos um sistema digital que agilizou processos em 30%.</p>
+                    <a href="#" class="restricted" aria-label="Saiba mais sobre Contabilidade Digital">Saiba Mais</a>
+                </div>
+            </div>
+            <div class="atualizacao-card">
+                <img src="https://via.placeholder.com/300x150?text=Gestão+Financeira" alt="Gestão Financeira">
+                <div class="atualizacao-card-content">
+                    <h3>Gestão Financeira para Cooperativa de Transporte</h3>
+                    <div class="date">15 de Fevereiro, 2025</div>
+                    <p>Otimizamos o fluxo de caixa, aumentando a lucratividade em 15%.</p>
+                    <a href="#" class="restricted" aria-label="Saiba mais sobre Gestão Financeira">Saiba Mais</a>
+                </div>
+            </div>
+            <div class="atualizacao-card">
+                <img src="https://via.placeholder.com/300x150?text=Treinamento+Financeiro" alt="Treinamento Financeiro">
+                <div class="atualizacao-card-content">
+                    <h3>Treinamento para Líderes de Cooperativas</h3>
+                    <div class="date">20 de Janeiro, 2025</div>
+                    <p>Capacitamos 100+ líderes em gestão financeira estratégica.</p>
+                    <a href="#" class="restricted" aria-label="Saiba mais sobre Treinamento Financeiro">Saiba Mais</a>
+                </div>
+            </div>
+        </div>
+        <p class="note">Em breve, acesse nossas atualizações exclusivas com cadastro!</p>
+    </section>
+
+    <!-- Impacto -->
+    <div class="section-divider"></div>
+    <section id="impacto" class="impacto">
+        <h2>Nosso Impacto no Setor Cooperativo</h2>
+        <div class="grid">
+            <div class="impacto-card">
+                <h3>50+</h3>
+                <p>Cooperativas Atendidas</p>
+            </div>
+            <div class="impacto-card">
+                <h3>R$10M+</h3>
+                <p>Economizados em Tributos</p>
+            </div>
+            <div class="impacto-card">
+                <h3>200+</h3>
+                <p>Projetos Concluídos</p>
+            </div>
+            <div class="impacto-card">
+                <h3>95%</h3>
+                <p>Satisfação dos Clientes</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Depoimentos -->
+    <div class="section-divider"></div>
+    <section id="depoimentos" class="depoimentos">
+        <h2>O que Nossas Cooperativas Dizem</h2>
+        <div class="grid">
+            <div class="depoimento-card">
+                <p>"A RPASS transformou nossa gestão fiscal, economizando milhares em tributos."</p>
+                <h4>João Silva, Cooperativa Agrícola</h4>
+            </div>
+            <div class="depoimento-card">
+                <p>"O sistema digital implementado pela equipe foi um divisor de águas para nossa cooperativa."</p>
+                <h4>Maria Oliveira, Cooperativa de Crédito</h4>
+            </div>
+            <div class="depoimento-card">
+                <p>"O treinamento financeiro capacitou nossa equipe para tomar decisões mais estratégicas."</p>
+                <h4>Carlos Mendes, Cooperativa de Transporte</h4>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chamada à Ação -->
+    <div class="section-divider"></div>
+    <section id="cta" class="cta">
+        <h2>Junte-se ao Sucesso</h2>
+        <p>Entre em contato para transformar sua cooperativa com nossos serviços.</p>
+        <a href="#" aria-label="Fale conosco sobre serviços para cooperativas">Fale Conosco</a>
+    </section>
+
+    <!-- Rodapé -->
+    <footer>
+        <p>© 2025 RPASS. Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="scripts.js" defer></script>
+    <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'938fad690d6eb03d',t:'MTc0NjEwNjY4Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1 RoscaPanopea('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+</body>
+</html>

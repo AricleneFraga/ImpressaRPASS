@@ -1,0 +1,133 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RPASS - Cadastro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Roboto+Condensed:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Botão de Voltar -->
+    <div class="back-button">
+        <a href="index.html" class="back-btn">← Voltar</a>
+    </div>
+
+    <!-- Seção de Cadastro -->
+    <section id="cadastro" class="cadastro">
+        <h2>Cadastro</h2>
+        <p>Escolha a opção que melhor se adequa ao seu perfil para se cadastrar.</p>
+        <div class="cadastro-options">
+            <div class="cadastro-option">
+                <h3>Empresas Cooperadoras</h3>
+                <p>Para empresas que desejam se tornar nossas cooperadoras e fazer parte da rede RPASS.</p>
+                <button onclick="showForm('empresa-form')" class="cadastro-btn">Cadastrar Empresa</button>
+            </div>
+            <div class="cadastro-option">
+                <h3>Outra Opção</h3>
+                <p>Em breve, mais opções de cadastro estarão disponíveis.</p>
+                <button class="cadastro-btn disabled" disabled>Em Breve</button>
+            </div>
+        </div>
+
+        <!-- Formulário para Empresas -->
+        <div id="empresa-form" class="cadastro-form" style="display: none;">
+            <h3>Cadastro de Empresa Cooperadora</h3>
+            <p>Preencha os dados abaixo para se tornar uma cooperadora da RPASS. Certifique-se de fornecer todas as informações contábeis necessárias.</p>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="nome-empresa">Nome da Empresa *</label>
+                    <input type="text" id="nome-empresa" name="nome-empresa" required placeholder="Ex.: AgroCoop Ltda">
+                </div>
+                <div class="form-group">
+                    <label for="nif">NIF (Número de Identificação Fiscal) *</label>
+                    <input type="text" id="nif" name="nif" required placeholder="Ex.: 123456789">
+                </div>
+                <div class="form-group">
+                    <label for="endereco">Endereço Completo *</label>
+                    <input type="text" id="endereco" name="endereco" required placeholder="Ex.: Rua 09, Centralidade do Sequele, Cacuaco">
+                </div>
+                <div class="form-group">
+                    <label for="telefone">Telefone de Contato *</label>
+                    <input type="tel" id="telefone" name="telefone" required placeholder="Ex.: +244 942 621 745">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email de Contato *</label>
+                    <input type="email" id="email" name="email" required placeholder="Ex.: contato@empresa.com">
+                </div>
+                <div class="form-group">
+                    <label for="representante">Nome do Representante Legal *</label>
+                    <input type="text" id="representante" name="representante" required placeholder="Ex.: João Silva">
+                </div>
+                <div class="form-group">
+                    <label for="atividade">Setor de Atividade *</label>
+                    <select id="atividade" name="atividade" required>
+                        <option value="" disabled selected>Selecione o setor</option>
+                        <option value="agricultura">Agricultura</option>
+                        <option value="servicos">Serviços</option>
+                        <option value="tecnologia">Tecnologia</option>
+                        <option value="industria">Indústria</option>
+                        <option value="outro">Outro</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="faturamento">Faturamento Anual (em AOA) *</label>
+                    <input type="number" id="faturamento" name="faturamento" required placeholder="Ex.: 5000000">
+                </div>
+                <div class="form-group full-width">
+                    <label for="documentos">Documentos Contábeis (PDF) *</label>
+                    <input type="file" id="documentos" name="documentos" accept=".pdf" required>
+                    <small>Envie um arquivo PDF contendo: Balanço Patrimonial, Demonstrativo de Resultados e Certidão de Regularidade Fiscal.</small>
+                </div>
+            </div>
+            <button type="submit" class="submit-btn">Enviar Cadastro</button>
+        </div>
+    </section>
+
+    <!-- Rodapé -->
+    <footer>
+        <p>© 2025 RPASS. Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="scripts.js" defer></script>
+</body>
+</html>

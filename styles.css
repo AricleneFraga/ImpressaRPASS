@@ -1,0 +1,1863 @@
+:root {
+    --primary: #003087;
+    --accent: #00aaff;
+    --bg-light: #f5f6f5;
+    --bg-white: #ffffff;
+    --text-secondary: #555;
+    --shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    --error: #e63946;
+    --success: #2a9d8f;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    background-color: var(--bg-light);
+    color: #333;
+    line-height: 1.6;
+    min-height: 100vh;
+    display: block;
+}
+
+/* Cabeçalho */
+header {
+    background-color: var(--primary);
+    color: white;
+    padding: 1rem 2rem;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    box-shadow: var(--shadow);
+}
+
+nav {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.logo img {
+    height: 60px; /* Aumentado de 40px para 60px */
+    width: auto;
+    transition: transform 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Adicionada sombra leve */
+}
+
+.logo:hover img {
+    transform: scale(1.05); /* Efeito de zoom suave ao passar o mouse */
+}
+
+
+
+
+
+
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 400;
+    transition: color 0.3s;
+}
+
+nav ul li a:hover {
+    color: var(--accent);
+}
+
+nav ul li a.active {
+    color: var(--accent);
+    text-decoration: underline;
+}
+
+/* Estilização dos Botões de Navegação */
+nav ul li a.nav-btn {
+    padding: 0.5rem 1.2rem;
+    border-radius: 5px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+nav ul li a.login-btn {
+    border: 1px solid var(--accent);
+    background-color: transparent;
+    color: var(--accent);
+}
+
+nav ul li a.login-btn:hover {
+    background-color: var(--accent);
+    color: white;
+}
+
+nav ul li a.signup-btn {
+    background-color: var(--accent);
+    color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+nav ul li a.signup-btn:hover {
+    background-color: #0088cc;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.menu-toggle {
+    display: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: white;
+}
+
+/* Botão de Voltar */
+.back-button {
+    max-width: 1400px;
+    margin: 1rem auto;
+    padding: 0 1rem;
+}
+
+.back-btn {
+    display: inline-block;
+    padding: 0.6rem 1.2rem;
+    background-color: var(--primary);
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 500;
+    transition: background-color 0.3s;
+}
+
+.back-btn:hover {
+    background-color: #002060;
+}
+
+/* Hero */
+.hero {
+    height: 60vh;
+    background: linear-gradient(rgba(0, 48, 135, 0.3), rgba(0, 48, 135, 0.3)), url('https://images.unsplash.com/photo-1556761175-5973dc0f32e7');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+}
+
+.hero-content h1 {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    max-width: 700px;
+    font-weight: 300;
+}
+
+.cta-button {
+    display: inline-block;
+    margin-top: 1.5rem;
+    padding: 0.8rem 2rem;
+    background-color: var(--accent);
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 500;
+    transition: background-color 0.3s;
+}
+
+.cta-button:hover {
+    background-color: #0088cc;
+}
+
+/* Seções Gerais */
+section {
+    max-width: 1400px;
+    margin: 4rem auto;
+    padding: 3rem 1rem;
+    opacity: 1;
+    transform: none;
+    transition: none;
+}
+
+section.visible {
+    opacity: 1;
+    transform: none;
+}
+
+/* Ajuste específico para a página de cadastro */
+#cadastro {
+    margin: 2rem auto;
+    padding: 2rem 1rem;
+    flex: 1;
+    background: linear-gradient(135deg, #e8f0fe 0%, #ffffff 50%, #d9e6ff 100%);
+    border-radius: 15px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+    position: relative;
+    overflow: visible; /* Alterado para evitar problemas de sobreposição */
+}
+
+#cadastro::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, rgba(0, 48, 135, 0.1) 0%, rgba(0, 170, 255, 0.1) 100%);
+    z-index: 0;
+}
+
+#cadastro > * {
+    position: relative;
+    z-index: 1;
+}
+
+section h2 {
+    font-size: 3rem;
+    color: var(--primary);
+    margin-bottom: 2rem;
+    text-align: center;
+    font-weight: 700;
+    font-family: 'Roboto Condensed', sans-serif;
+    position: relative;
+}
+
+section h2::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background-color: var(--accent);
+    margin: 0.5rem auto;
+    border-radius: 2px;
+}
+
+/* Divisores */
+.section-divider {
+    height: 2rem;
+    background: linear-gradient(to bottom, var(--bg-light), var(--bg-white));
+}
+
+/* Sobre */
+.sobre {
+    background-color: var(--bg-white);
+    border-radius: 10px;
+    text-align: center;
+}
+
+.sobre p {
+    max-width: 900px;
+    margin: 0 auto;
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+}
+
+/* Serviços (index.html) */
+.servicos {
+    background-color: var(--bg-light);
+}
+
+.servicos .grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+}
+
+.servico-card {
+    background-color: var(--bg-white);
+    padding: 1.5rem;
+    border-radius: 8px;
+    text-align: center;
+    border: 1px solid #e9ecef;
+    transition: transform 0.3s, border-color 0.3s;
+}
+
+.servico-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent);
+}
+
+.servico-card h3 {
+    color: var(--primary);
+    margin-bottom: 0.8rem;
+    font-size: 1.4rem;
+}
+
+.servico-card p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+}
+
+/* Clientes (index.html) */
+.clientes {
+    background-color: var(--bg-white);
+}
+
+.clientes .grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1.5rem;
+    text-align: center;
+}
+
+.cliente-card img {
+    max-width: 140px;
+    height: auto;
+    margin-bottom: 0.8rem;
+    transition: transform 0.3s;
+}
+
+.cliente-card img:hover {
+    transform: scale(1.05);
+}
+
+.cliente-card p {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+}
+
+/* Publicações (publicacoes.html e index.html) */
+.publicacoes {
+    background-color: var(--bg-light);
+}
+
+.publicacoes .grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.publicacao-card {
+    position: relative;
+    background-color: var(--bg-white);
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+    text-align: center;
+    transition: transform 0.3s, border-color 0.3s;
+}
+
+.publicacao-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent);
+}
+
+.publicacao-card.restricted {
+    opacity: 0.6;
+}
+
+.publicacao-card .icon {
+    font-size: 2rem;
+    margin-bottom: 0.8rem;
+}
+
+.publicacao-card h3 {
+    color: var(--primary);
+    margin-bottom: 0.8rem;
+    font-size: 1.3rem;
+}
+
+.publicacao-card p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+}
+
+.publicacao-card a {
+    display: inline-block;
+    margin-top: 1rem;
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.publicacao-card a:hover {
+    text-decoration: underline;
+}
+
+.publicacao-card .date {
+    font-size: 0.85rem;
+    color: #777;
+    margin-top: 0.8rem;
+}
+
+/* Overlay para Conteúdo Restrito */
+.restricted-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    padding: 1rem;
+}
+
+.restricted-overlay p {
+    color: white;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.restricted-btn {
+    padding: 0.6rem 1.2rem;
+    background-color: var(--accent);
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 500;
+    transition: background-color 0.3s;
+}
+
+.restricted-btn:hover {
+    background-color: #0088cc;
+}
+
+.publicacoes .note {
+    text-align: center;
+    margin-top: 2rem;
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+/* Cooperativas (cooperativas.html) */
+.cooperativas {
+    background: linear-gradient(135deg, var(--bg-white) 0%, #e8f0fe 100%);
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+    padding: 4rem 2rem;
+}
+
+.cooperativas h2 {
+    font-size: 3.2rem;
+    background: linear-gradient(to right, var(--primary), var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 1rem;
+}
+
+.cooperativas h2::after {
+    width: 80px;
+    height: 4px;
+    background-color: var(--accent);
+    opacity: 0.7;
+}
+
+.cooperativas p {
+    max-width: 900px;
+    margin: 0 auto 3rem;
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    line-height: 1.8;
+}
+
+.cooperativas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 4rem;
+}
+
+.cooperativa-card {
+    background-color: var(--bg-white);
+    padding: 2rem;
+    border-radius: 12px;
+    border: 1px solid #e9ecef;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.cooperativa-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(to right, var(--primary), var(--accent));
+    transition: width 0.3s ease;
+}
+
+.cooperativa-card:hover::before {
+    width: 100%;
+}
+
+.cooperativa-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    border-color: var(--accent);
+}
+
+.cooperativa-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: var(--primary);
+    transition: transform 0.3s ease;
+}
+
+.cooperativa-card:hover .cooperativa-icon {
+    transform: scale(1.2);
+}
+
+.cooperativa-card h3 {
+    color: var(--primary);
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.cooperativa-card p {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.cooperativa-card p strong {
+    color: #333;
+}
+
+/* Artigos em Destaque (blog.html) */
+.destaque {
+    background-color: var(--bg-white);
+}
+
+.destaque-card {
+    display: flex;
+    align-items: center;
+    background-color: var(--bg-light);
+    border-radius: 10px;
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+    transition: transform 0.3s;
+}
+
+.destaque-card:hover {
+    transform: translateY(-5px);
+}
+
+.destaque-card img {
+    width: 50%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-right: 2rem;
+}
+
+.destaque-card-content {
+    flex: 1;
+}
+
+.destaque-card-content h3 {
+    color: var(--primary);
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.destaque-card-content .date {
+    font-size: 1rem;
+    color: #777;
+    margin-bottom: 1rem;
+}
+
+.destaque-card-content p {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+}
+
+.destaque-card-content a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.1rem;
+}
+
+.destaque-card-content a:hover {
+    text-decoration: underline;
+}
+
+/* Barra de Pesquisa (blog.html) */
+.search-bar {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.search-bar input {
+    padding: 0.8rem;
+    width: 300px;
+    border: 1px solid #ddd;
+    border-radius: 5px 0 0 5px;
+    font-size: 1rem;
+    outline: none;
+}
+
+.search-bar button {
+    padding: 0.8rem 1rem;
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.search-bar button:hover {
+    background-color: #002060;
+}
+
+/* Artigos (blog.html) */
+.artigos {
+    background-color: var(--bg-light);
+}
+
+.category-section {
+    margin-bottom: 3rem;
+}
+
+.category-title {
+    font-size: 1.8rem;
+    color: var(--primary);
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+    font-family: 'Roboto Condensed', sans-serif;
+    position: relative;
+}
+
+.category-title::after {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 2px;
+    background-color: var(--accent);
+    margin-top: 0.5rem;
+}
+
+.artigos .grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.artigo-card {
+    background-color: var(--bg-white);
+    border-radius: 10px;
+    border: none;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.artigo-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.artigo-card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
+
+.artigo-card-content {
+    padding: 1.5rem;
+}
+
+.artigo-card-content h3 {
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+    font-size: 1.3rem;
+}
+
+.artigo-card-content .date {
+    font-size: 0.85rem;
+    color: #777;
+    margin-bottom: 0.8rem;
+}
+
+.artigo-card-content p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+}
+
+.artigo-card-content a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.artigo-card-content a:hover {
+    color: #0088cc;
+    text-decoration: underline;
+}
+
+.artigos .note {
+    text-align: center;
+    margin-top: 2rem;
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+.load-more {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.load-more button {
+    padding: 0.8rem 2rem;
+    background-color: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.load-more button:hover {
+    background-color: #0088cc;
+}
+
+/* Atualizações (cooperativas-atualizacoes.html) */
+.atualizacoes {
+    background-color: var(--bg-light);
+}
+
+.atualizacoes .grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.atualizacao-card {
+    background-color: var(--bg-white);
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+    overflow: hidden;
+    transition: transform 0.3s, border-color 0.3s;
+}
+
+.atualizacao-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent);
+}
+
+.atualizacao-card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
+
+.atualizacao-card-content {
+    padding: 1.5rem;
+}
+
+.atualizacao-card-content h3 {
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+    font-size: 1.3rem;
+}
+
+.atualizacao-card-content .date {
+    font-size: 0.85rem;
+    color: #777;
+    margin-bottom: 0.8rem;
+}
+
+.atualizacao-card-content p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+}
+
+.atualizacao-card-content a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.atualizacao-card-content a:hover {
+    text-decoration: underline;
+}
+
+.atualizacoes .note {
+    text-align: center;
+    margin-top: 2rem;
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+/* Impacto (cooperativas-atualizacoes.html) */
+.impacto {
+    background-color: var(--bg-white);
+}
+
+.impacto .grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1.5rem;
+}
+
+.impacto-card {
+    background-color: var(--bg-light);
+    padding: 2rem;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.impacto-card h3 {
+    color: var(--primary);
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.impacto-card p {
+    color: var(--text-secondary);
+    font-size: 1rem;
+}
+
+/* Depoimentos (cooperativas-atualizacoes.html) */
+.depoimentos {
+    background-color: var(--bg-light);
+}
+
+.depoimentos .grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.depoimento-card {
+    background-color: var(--bg-white);
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+    text-align: center;
+}
+
+.depoimento-card p {
+    color: var(--text-secondary);
+    font-style: italic;
+    margin-bottom: 1rem;
+}
+
+.depoimento-card h4 {
+    color: var(--primary);
+    font-size: 1rem;
+}
+
+/* Contato (index.html) */
+.contato {
+    background-color: var(--primary);
+    color: white;
+    padding: 3rem 1rem;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.contato .grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+    max-width: 1000px;
+    margin: 1.5rem auto 0;
+}
+
+.contato p {
+    font-size: 1.1rem;
+    margin-bottom: 0.8rem;
+}
+
+.contato a {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+.contato a:hover {
+    text-decoration: underline;
+}
+
+/* Chamada à Ação */
+.cta {
+    background-color: var(--bg-white);
+    text-align: center;
+}
+
+.cta p {
+    max-width: 700px;
+    margin: 0 auto 1.5rem;
+    color: var(--text-secondary);
+}
+
+.cta a {
+    display: inline-block;
+    padding: 0.8rem 2rem;
+    background-color: var(--primary);
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 500;
+    transition: background-color 0.3s;
+}
+
+.cta a:hover {
+    background-color: #002060;
+}
+
+/* Cadastro (cadastro.html) */
+.cadastro {
+    background-color: var(--bg-white);
+    border-radius: 10px;
+    text-align: center;
+}
+
+.cadastro p {
+    max-width: 900px;
+    margin: 0 auto 2rem;
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+}
+
+.cadastro-options {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin-bottom: 3rem;
+}
+
+.cadastro-option {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 2rem;
+    border-radius: 8px;
+    width: 300px;
+    text-align: center;
+    transition: transform 0.3s;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.cadastro-option:hover {
+    transform: translateY(-5px);
+}
+
+.cadastro-option h3 {
+    color: var(--primary);
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.cadastro-option p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+}
+
+.cadastro-btn {
+    padding: 0.8rem 1.5rem;
+    background-color: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.cadastro-btn:hover {
+    background-color: #0088cc;
+}
+
+.cadastro-btn.disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.cadastro-form {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 2; /* Garante que o formulário esteja acima de outros elementos */
+}
+
+.cadastro-form h3 {
+    color: var(--primary);
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+}
+
+.cadastro-form p {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    margin-bottom: 2rem;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group.full-width {
+    grid-column: 1 / -1;
+}
+
+.form-group label {
+    font-size: 1rem;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.form-group input,
+.form-group select {
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: var(--accent);
+}
+
+.form-group small {
+    color: #777;
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+}
+
+.submit-btn {
+    display: block;
+    margin: 2rem auto 0;
+    padding: 0.8rem 2rem;
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    pointer-events: auto;
+    z-index: 3; /* Garante que o botão esteja acima de outros elementos */
+}
+
+.submit-btn:hover {
+    background-color: #002060;
+}
+
+/* Estilização das Mensagens de Feedback */
+.cadastro-form .message-container {
+    margin-top: 1rem;
+    text-align: center;
+    z-index: 2;
+}
+
+.cadastro-form .error-message {
+    display: none;
+    background-color: var(--error);
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 500;
+    animation: fadeIn 0.5s ease-in;
+}
+
+.cadastro-form .error-message.show {
+    display: block;
+}
+
+.cadastro-form .success-message {
+    display: none;
+    background-color: var(--success);
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 500;
+    animation: slideIn 0.5s ease-in;
+}
+
+.cadastro-form .success-message.show {
+    display: block;
+}
+
+.cadastro-form .success-message::before {
+    content: '✔';
+    margin-right: 0.5rem;
+}
+
+/* Animações */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Rodapé */
+footer {
+    background-color: #001c3d;
+    color: white;
+    text-align: center;
+    padding: 1.5rem;
+    font-size: 0.9rem;
+    width: 100%;
+}
+
+/* Responsividade para smartphones */
+
+/* Até 480px (360×800, 390×844, 393×873) */
+@media (max-width: 480px) {
+    header {
+        padding: 0.8rem 1rem;
+    }
+
+    .logo img {
+        height: 30px;
+    }
+
+    nav ul {
+        display: none;
+        flex-direction: column;
+        gap: 1rem;
+        background-color: var(--primary);
+        position: absolute;
+        top: 50px;
+        left: 0;
+        width: 100%;
+        padding: 1rem;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    nav ul.active {
+        display: flex;
+    }
+
+    nav ul li a {
+        font-size: 0.9rem;
+        padding: 0.5rem;
+    }
+
+    nav ul li a.nav-btn {
+        width: 100%;
+        text-align: center;
+        padding: 0.6rem;
+        font-size: 0.9rem;
+    }
+
+    .menu-toggle {
+        display: block;
+        font-size: 1.2rem;
+    }
+
+    .hero {
+        height: 40vh;
+    }
+
+    .hero-content h1 {
+        font-size: 1.8rem;
+    }
+
+    .hero-content p {
+        font-size: 0.9rem;
+        max-width: 90%;
+    }
+
+    .cta-button {
+        padding: 0.6rem 1.5rem;
+        font-size: 0.9rem;
+    }
+
+    section {
+        margin: 2rem auto;
+        padding: 1.5rem 0.5rem;
+    }
+
+    section h2 {
+        font-size: 1.8rem;
+    }
+
+    section h2::after {
+        width: 40px;
+        height: 2px;
+    }
+
+    .sobre p, .cadastro p, .cooperativas p, .destaque-card-content p {
+        font-size: 0.9rem;
+    }
+
+    .servicos .grid, .clientes .grid, .publicacoes .grid, .cooperativas-grid, .atualizacoes .grid, .impacto .grid, .depoimentos .grid, .contato .grid, .artigos .grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .servico-card, .publicacao-card, .cooperativa-card, .atualizacao-card, .depoimento-card, .artigo-card {
+        padding: 1rem;
+    }
+
+    .servico-card h3, .publicacao-card h3, .cooperativa-card h3, .atualizacao-card-content h3, .artigo-card-content h3 {
+        font-size: 1.2rem;
+    }
+
+    .cooperativa-icon {
+        font-size: 2rem;
+    }
+
+    .cooperativas {
+        padding: 2rem 1rem;
+    }
+
+    .cooperativas h2 {
+        font-size: 2rem;
+    }
+
+    #cadastro {
+        margin: 1.5rem auto;
+        padding: 1.5rem 0.5rem;
+    }
+
+    .cadastro-options {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .cadastro-option {
+        width: 90%;
+        max-width: 320px;
+        padding: 1.5rem;
+    }
+
+    .cadastro-option h3 {
+        font-size: 1.3rem;
+    }
+
+    .cadastro-option p {
+        font-size: 0.85rem;
+    }
+
+    .cadastro-btn {
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
+    }
+
+    .cadastro-form {
+        padding: 1.5rem;
+    }
+
+    .cadastro-form h3 {
+        font-size: 1.5rem;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .form-group input, .form-group select {
+        padding: 0.6rem;
+        font-size: 0.9rem;
+    }
+
+    .form-group label {
+        font-size: 0.9rem;
+    }
+
+    .submit-btn {
+        padding: 0.6rem 1.5rem;
+        font-size: 0.9rem;
+    }
+
+    .destaque-card {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .destaque-card img {
+        width: 100%;
+        height: 200px;
+        margin-right: 0;
+        margin-bottom: 1rem;
+    }
+
+    .destaque-card-content h3 {
+        font-size: 1.5rem;
+    }
+
+    .destaque-card-content p {
+        font-size: 0.9rem;
+    }
+
+    .search-bar input {
+        width: 200px;
+        padding: 0.6rem;
+        font-size: 0.9rem;
+    }
+
+    .search-bar button {
+        padding: 0.6rem;
+        font-size: 0.9rem;
+    }
+
+    .cta a {
+        padding: 0.8rem 1.5rem;
+        font-size: 0.9rem;
+    }
+
+    footer {
+        padding: 1rem;
+        font-size: 0.8rem;
+    }
+
+    .cadastro-form .error-message, .cadastro-form .success-message {
+        font-size: 0.9rem;
+        padding: 0.6rem 1rem;
+    }
+}
+
+/* De 481px a 1080px (720×1280, 1080×1920, 1080×2280, 1080×2340, 1080×2400) */
+@media (min-width: 481px) and (max-width: 1080px) {
+    header {
+        padding: 0.8rem 1.5rem;
+    }
+
+    .logo img {
+        height: 35px;
+    }
+
+    nav ul {
+        display: none;
+        flex-direction: column;
+        gap: 1.2rem;
+        background-color: var(--primary);
+        position: absolute;
+        top: 55px;
+        left: 0;
+        width: 100%;
+        padding: 1.2rem;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    nav ul.active {
+        display: flex;
+    }
+
+    nav ul li a {
+        font-size: 1rem;
+        padding: 0.6rem;
+    }
+
+    nav ul li a.nav-btn {
+        width: 100%;
+        text-align: center;
+        padding: 0.7rem;
+        font-size: 1rem;
+    }
+
+    .menu-toggle {
+        display: block;
+        font-size: 1.3rem;
+    }
+
+    .hero {
+        height: 45vh;
+    }
+
+    .hero-content h1 {
+        font-size: 2.2rem;
+    }
+
+    .hero-content p {
+        font-size: 1rem;
+        max-width: 90%;
+    }
+
+    .cta-button {
+        padding: 0.7rem 1.8rem;
+        font-size: 1rem;
+    }
+
+    section {
+        margin: 3rem auto;
+        padding: 2rem 1rem;
+    }
+
+    section h2 {
+        font-size: 2.5rem;
+    }
+
+    section h2::after {
+        width: 50px;
+    }
+
+    .sobre p, .cadastro p, .cooperativas p, .destaque-card-content p {
+        font-size: 1rem;
+    }
+
+    .servicos .grid, .clientes .grid, .publicacoes .grid, .cooperativas-grid, .atualizacoes .grid, .impacto .grid, .depoimentos .grid, .contato .grid, .artigos .grid {
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
+    }
+
+    .servico-card, .publicacao-card, .cooperativa-card, .atualizacao-card, .depoimento-card, .artigo-card {
+        padding: 1.2rem;
+    }
+
+    .servico-card h3, .publicacao-card h3, .cooperativa-card h3, .atualizacao-card-content h3, .artigo-card-content h3 {
+        font-size: 1.3rem;
+    }
+
+    .cooperativa-icon {
+        font-size: 2.5rem;
+    }
+
+    .cooperativas {
+        padding: 3rem 1.5rem;
+    }
+
+    .cooperativas h2 {
+        font-size: 2.5rem;
+    }
+
+    #cadastro {
+        margin: 2rem auto;
+        padding: 2rem 1rem;
+    }
+
+    .cadastro-options {
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+    }
+
+    .cadastro-option {
+        width: 80%;
+        max-width: 400px;
+        padding: 1.8rem;
+    }
+
+    .cadastro-option h3 {
+        font-size: 1.4rem;
+    }
+
+    .cadastro-option p {
+        font-size: 0.9rem;
+    }
+
+    .cadastro-btn {
+        padding: 0.7rem 1.2rem;
+        font-size: 1rem;
+    }
+
+    .cadastro-form {
+        padding: 1.8rem;
+    }
+
+    .cadastro-form h3 {
+        font-size: 1.7rem;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
+    }
+
+    .form-group input, .form-group select {
+        padding: 0.7rem;
+        font-size: 1rem;
+    }
+
+    .form-group label {
+        font-size: 1rem;
+    }
+
+    .submit-btn {
+        padding: 0.7rem 1.8rem;
+        font-size: 1rem;
+    }
+
+    .destaque-card {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .destaque-card img {
+        width: 100%;
+        height: 250px;
+        margin-right: 0;
+        margin-bottom: 1.2rem;
+    }
+
+    .destaque-card-content h3 {
+        font-size: 1.8rem;
+    }
+
+    .destaque-card-content p {
+        font-size: 1rem;
+    }
+
+    .search-bar input {
+        width: 250px;
+        padding: 0.7rem;
+        font-size: 1rem;
+    }
+
+    .search-bar button {
+        padding: 0.7rem;
+        font-size: 1rem;
+    }
+
+    .cta a {
+        padding: 0.9rem 2rem;
+        font-size: 1rem;
+    }
+
+    footer {
+        padding: 1.2rem;
+        font-size: 0.9rem;
+    }
+
+    .cadastro-form .error-message, .cadastro-form .success-message {
+        font-size: 0.95rem;
+        padding: 0.7rem 1.2rem;
+    }
+}
+
+/* De 1081px a 1242px (1125×2436, 1170×2532, 1242×2688) */
+@media (min-width: 1081px) and (max-width: 1242px) {
+    header {
+        padding: 1rem 2rem;
+    }
+
+    .logo img {
+        height: 40px;
+    }
+
+    nav ul {
+        gap: 1.2rem;
+    }
+
+    nav ul li a {
+        font-size: 1rem;
+    }
+
+    nav ul li a.nav-btn {
+        padding: 0.5rem 1rem;
+        font-size: 1rem;
+    }
+
+    .hero {
+        height: 50vh;
+    }
+
+    .hero-content h1 {
+        font-size: 3rem;
+    }
+
+    .hero-content p {
+        font-size: 1.1rem;
+        max-width: 80%;
+    }
+
+    .cta-button {
+        padding: 0.8rem 2rem;
+        font-size: 1.1rem;
+    }
+
+    section {
+        margin: 3.5rem auto;
+        padding: 2.5rem 1.5rem;
+    }
+
+    section h2 {
+        font-size: 2.8rem;
+    }
+
+    .sobre p, .cadastro p, .cooperativas p, .destaque-card-content p {
+        font-size: 1.1rem;
+    }
+
+    .servicos .grid {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .clientes .grid {
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .publicacoes .grid, .cooperativas-grid, .atualizacoes .grid, .artigos .grid {
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .impacto .grid, .depoimentos .grid, .contato .grid {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .cooperativas {
+        padding: 3.5rem 2rem;
+    }
+
+    .cooperativas h2 {
+        font-size: 3rem;
+    }
+
+    .cooperativa-icon {
+        font-size: 2.8rem;
+    }
+
+    #cadastro {
+        margin: 2.5rem auto;
+        padding: 2.5rem 1.5rem;
+    }
+
+    .cadastro-options {
+        gap: 1.8rem;
+    }
+
+    .cadastro-option {
+        width: 280px;
+        padding: 1.8rem;
+    }
+
+    .cadastro-option h3 {
+        font-size: 1.5rem;
+    }
+
+    .cadastro-btn {
+        padding: 0.8rem 1.5rem;
+        font-size: 1rem;
+    }
+
+    .cadastro-form {
+        padding: 2rem;
+    }
+
+    .form-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .destaque-card {
+        flex-direction: row;
+    }
+
+    .destaque-card img {
+        width: 50%;
+        height: 280px;
+        margin-right: 1.5rem;
+        margin-bottom: 0;
+    }
+
+    .destaque-card-content h3 {
+        font-size: 1.9rem;
+    }
+
+    .search-bar input {
+        width: 280px;
+    }
+
+    .cta a {
+        padding: 1rem 2.2rem;
+        font-size: 1.1rem;
+    }
+}
+
+/* De 1243px a 1440px (1440×2960, 1440×3040, 1440×3120, 1440×3200) */
+@media (min-width: 1243px) and (max-width: 1440px) {
+    header {
+        padding: 1rem 2rem;
+    }
+
+    .logo img {
+        height: 40px;
+    }
+
+    nav ul {
+        gap: 1.5rem;
+    }
+
+    nav ul li a {
+        font-size: 1rem;
+    }
+
+    nav ul li a.nav-btn {
+        padding: 0.5rem 1.2rem;
+        font-size: 1rem;
+    }
+
+    .hero {
+        height: 60vh;
+    }
+
+    .hero-content h1 {
+        font-size: 3.5rem;
+    }
+
+    .hero-content p {
+        font-size: 1.2rem;
+        max-width: 700px;
+    }
+
+    .cta-button {
+        padding: 0.8rem 2rem;
+        font-size: 1.1rem;
+    }
+
+    section {
+        margin: 4rem auto;
+        padding: 3rem 1rem;
+    }
+
+    section h2 {
+        font-size: 3rem;
+    }
+
+    .sobre p, .cadastro p, .cooperativas p, .destaque-card-content p {
+        font-size: 1.1rem;
+    }
+
+    .servicos .grid {
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .clientes .grid {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .publicacoes .grid, .cooperativas-grid, .atualizacoes .grid, .artigos .grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .impacto .grid, .depoimentos .grid, .contato .grid {
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .cooperativas {
+        padding: 4rem 2rem;
+    }
+
+    .cooperativas h2 {
+        font-size: 3.2rem;
+    }
+
+    .cooperativa-icon {
+        font-size: 3rem;
+    }
+
+    #cadastro {
+        margin: 2rem auto;
+        padding: 2rem 1rem;
+    }
+
+    .cadastro-options {
+        gap: 2rem;
+    }
+
+    .cadastro-option {
+        width: 300px;
+        padding: 2rem;
+    }
+
+    .cadastro-option h3 {
+        font-size: 1.5rem;
+    }
+
+    .cadastro-btn {
+        padding: 0.8rem 1.5rem;
+        font-size: 1rem;
+    }
+
+    .cadastro-form {
+        padding: 2rem;
+    }
+
+    .form-grid {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .destaque-card {
+        flex-direction: row;
+    }
+
+    .destaque-card img {
+        width: 50%;
+        height: 300px;
+        margin-right: 2rem;
+        margin-bottom: 0;
+    }
+
+    .destaque-card-content h3 {
+        font-size: 2rem;
+    }
+
+    .search-bar input {
+        width: 300px;
+    }
+
+    .cta a {
+        padding: 1rem 2.5rem;
+        font-size: 1.1rem;
+    }
+}

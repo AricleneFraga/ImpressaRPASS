@@ -1,0 +1,102 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RPASS - Cooperativas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Roboto+Condensed:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Cabeçalho -->
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="index.html"><img src="img/logo1.jpg" alt="RPASS Logo"></a>
+               
+            </div>
+            <div class="menu-toggle">☰</div>
+            <ul>
+                <li><a href="index.html">Início</a></li>
+                <li><a href="cadastro.html" class="nav-btn signup-btn">Cadastrar-se</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Seção de Vislumbre do Trabalho com Cooperativas -->
+    <section id="cooperativas" class="cooperativas">
+        <h2>Transformando o Futuro com Nossas Cooperadoras</h2>
+        <p>Descubra como a RPASS tem impactado positivamente empresas cooperadoras, promovendo crescimento sustentável e inovação. Veja alguns exemplos do nosso trabalho e junte-se a nós!</p>
+        <div class="cooperativas-grid">
+            <div class="cooperativa-card">
+                <div class="cooperativa-icon">🌾</div>
+                <h3>Projeto AgroCoop</h3>
+                <p>Em parceria com a AgroCoop, aumentamos a produtividade em 30% através de treinamentos e consultoria especializada.</p>
+                <p><strong>Resultado:</strong> Expansão para novos mercados e aumento de receita em 2 milhões de AOA.</p>
+            </div>
+            <div class="cooperativa-card">
+                <div class="cooperativa-icon">💻</div>
+                <h3>TechCoop Inovação</h3>
+                <p>A TechCoop implementou soluções tecnológicas com nosso suporte, reduzindo custos operacionais em 15%.</p>
+                <p><strong>Resultado:</strong> Melhor eficiência e maior competitividade no setor de tecnologia.</p>
+            </div>
+            <div class="cooperativa-card">
+                <div class="cooperativa-icon">🌍</div>
+                <h3>Indústria Verde</h3>
+                <p>Com a Indústria Verde, desenvolvemos práticas sustentáveis que reduziram o impacto ambiental em 25%.</p>
+                <p><strong>Resultado:</strong> Certificação ambiental e reconhecimento no mercado.</p>
+            </div>
+        </div>
+        <div class="cta">
+            <p>Faça parte dessa transformação! Junte-se à rede RPASS e leve sua empresa ao próximo nível.</p>
+            <a href="cadastro.html" class="cta-button">Quero Fazer Parte!</a>
+        </div>
+    </section>
+
+    <!-- Rodapé -->
+    <footer>
+        <p>© 2025 RPASS. Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="scripts.js" defer></script>
+</body>
+</html>
